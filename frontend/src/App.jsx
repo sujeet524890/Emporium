@@ -1,0 +1,54 @@
+import React from 'react'
+import {Routes, Route,} from 'react-router'
+import About from './Pages/About'
+import Contact from './Pages/Contact'
+import Collections from "./Pages/Collections"
+import Cart from './Pages/Cart'
+import Home from './Components/Home'
+import Navebar from "./Components/Navebar"
+import Footer from './Components/Footer'
+import Checkout from './Pages/Checkout'
+import Login from './Pages/Login'
+import Singup from './Pages/Singup'
+import AdminDashboard from './Admin/Pages/AdminDashboard'
+import Adminlogin from './Admin/Pages/Adminlogin'
+import { useState } from 'react'
+import ProductPage from './Pages/ProductPage'
+import Products from './Admin/Pages/Products'
+import User from './Admin/Pages/User'
+
+
+const App = () => {
+
+    const[isLogin,setIsLogin]=useState(true)
+  return (
+    <div>
+       <Navebar></Navebar>
+      <Routes>
+         
+        <Route path="/" element={<Home/>}/>
+        <Route path="/about" element={<About/>} />
+        <Route path="/contact" element={<Contact/>}/>
+        <Route path="/collection" element={<Collections/>} />
+        <Route path="/cart" element={<Cart/>} />
+        <Route path="/checkout" element={<Checkout/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/singup" element={<Singup/>} />
+        <Route path="/adminlogin" element={ <Adminlogin></Adminlogin>} />
+       <Route path="/adminDashboard" element={ isLogin? <AdminDashboard></AdminDashboard>: <Adminlogin></Adminlogin>} />
+       <Route path="/productPage/:id" element={<ProductPage/>} />
+       <Route path="/products/:id" element={<Products/>} />
+       <Route path="/user/" element={<User/>} />
+
+        
+        </Routes> 
+
+       <Footer></Footer>
+      
+       
+       
+     </div>
+  )
+}
+
+export default App
