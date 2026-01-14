@@ -32,7 +32,7 @@ const AppProvider = ({ children }) => {
    //product data
  const getProductData = async(productdata)=>{
   try{
-     const  response= await axios.get("http://localhost:5000/api/getProduct",productdata)
+     const  response= await axios.get("https://emporium-argj.onrender.com/api/getProduct",productdata)
      setProduct(response.data.productdata)
      toast.success(response.data.message)
   }
@@ -44,7 +44,7 @@ const AppProvider = ({ children }) => {
    // User data
  const getUsertData = async()=>{
   try{
-     const  response = await axios.get("http://localhost:5000/api/getuser")
+     const  response = await axios.get("https://emporium-argj.onrender.com/api/getuser")
      setUser(response.data.getUsertData)
      
   }
@@ -55,7 +55,7 @@ const AppProvider = ({ children }) => {
  //contect
 const Contect = async (contectdata)=>{
   try{
-    const response =await axios.post("http://localhost:5000/api/Contect",contectdata)
+    const response =await axios.post("https://emporium-argj.onrender.com/api/Contect",contectdata)
     toast.success(response.data.message)
   } 
   catch{
@@ -68,7 +68,7 @@ const Contect = async (contectdata)=>{
     
   try{
 
-     const  response= await axios.post("http://localhost:5000/api/signup",userData)
+     const  response= await axios.post("https://emporium-argj.onrender.com/api/signup",userData)
      localStorage.setItem("userSignup",response.data.token)
      toast.success(response.data.message)
   }
@@ -79,7 +79,7 @@ const Contect = async (contectdata)=>{
    // login
  const Loginuser = async(userData)=>{
   try{
-     const  response= await axios.post("http://localhost:5000/api/login",userData)
+     const  response= await axios.post("https://emporium-argj.onrender.com/api/login",userData)
      localStorage.setItem("logintoken",response.data.token)
     if(response.data.success){
        toast.success(response.data.message)
@@ -103,7 +103,7 @@ const Contect = async (contectdata)=>{
  // Admin login
 const Adminlogin = async(admindata)=>{
   try{
-  const responce = await axios.post("http://localhost:5000/api/adminlogin",admindata) 
+  const responce = await axios.post("https://emporium-argj.onrender.com/api/adminlogin",admindata) 
  
   localStorage.setItem("admintoken", responce.data.token)
  if(responce.data.success) toast.success("login success")
@@ -120,13 +120,13 @@ const Adminlogin = async(admindata)=>{
 //add product
 const Addproduct = async(productForm)=>{
    
-  const responce =await axios.post("http://localhost:5000/api/addproduct",productForm)
+  const responce =await axios.post("https://emporium-argj.onrender.com/api/addproduct",productForm)
   toast.success(responce.data.message)
 
 }
 //delet product  admin
 const deletProduct = async(id)=>{
-  const responce =await axios.delete(`http://localhost:5000/api/deletproduct/${id}`)
+  const responce =await axios.delete(`https://emporium-argj.onrender.com/api/deletproduct/${id}`)
   
   toast.success(responce.data.message)
 }
@@ -139,7 +139,7 @@ const deletProduct = async(id)=>{
 // delet user 
 
 const deletuser = async(id)=>{
-  const responce =await axios.delete(`http://localhost:5000/api/deletuser/${id}`)
+  const responce =await axios.delete(`https://emporium-argj.onrender.com/api/deletuser/${id}`)
   toast.success(responce.data.massage)
  
 }
