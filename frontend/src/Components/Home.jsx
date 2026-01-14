@@ -1,7 +1,8 @@
 import React from 'react'
 import Mainbanner from './Mainbanner'
-import ProductsForYou from './ProductsForYou'
-import Collections from '../Pages/Collections'
+import ProductsForYou from "../ProductsForYou.jsx";
+
+
 
 
 const Home = () => {

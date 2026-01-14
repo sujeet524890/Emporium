@@ -5,7 +5,7 @@ import { AppContext } from "../ContextApi/Contex";
 import { Link } from "react-router-dom";
 const ProductsForYou = () => {
   const { products } = useContext(AppContext);
-  const [card, setCard] = useState([]);
+ 
 
   const Candles = products.filter((Candle) => Candle.category == "Candle");
   const Chocolate = products.filter((Chocolate) => Chocolate.category == "Chocolate");
