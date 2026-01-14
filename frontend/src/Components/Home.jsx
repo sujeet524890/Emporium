@@ -1,6 +1,6 @@
 import React from 'react'
 import Mainbanner from './Mainbanner'
-import ProductsForYou from "../ProductsForYou.jsx";
+import Categories from './Categories'
 
 
 
@@ -11,7 +11,7 @@ const Home = () => {
     <div>
        
         <Mainbanner></Mainbanner>
-        <ProductsForYou></ProductsForYou>
+        <Categories></Categories>
          
     </div>
   )

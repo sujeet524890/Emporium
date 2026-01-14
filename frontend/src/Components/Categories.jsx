@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useContext } from "react";
 import { AppContext } from "../ContextApi/Contex";
 import { Link } from "react-router-dom";
-const ProductsForYou = () => {
+const Categories = () => {
   const { products } = useContext(AppContext);
  
 
@@ -150,4 +150,4 @@ const ProductsForYou = () => {
   );
 };
 
-export default ProductsForYou;
+export default Categories;
