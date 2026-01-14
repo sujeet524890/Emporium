@@ -1,81 +1,28 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios"
 import Products from "../Admin/Pages/Products";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-// create context
+
+
+
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
+  const location =useNavigate();
+
+
+ 
    
   const [user , setUser] = useState([
-    {
-      _id:1,
-      username:"sujeet",
-      gmail:"sk@gmail.com",
     
-    },
-     {
-      _id:2,
-      username:"sujeet",
-      gmail:"sk@gmail.com",
-     
-    },
-     {
-      _id:3,
-      username:"sujeet",
-      gmail:"sk@gmail.com",
-      
-    },
-     {
-      _id:4,
-      username:"sujeet",
-      gmail:"sk@gmail.com",
-     
-    },
   ])
   const [products, setProduct] = useState([
-    {
-      _id: 1,
-      name: "Classic T-Shirt",
-      price: "₹799",
-      image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
-       description:
-    "High-quality cotton t-shirt with a modern fit. Comfortable, breathable, and perfect for everyday wear.",
-      rating: 4.6,
-      reviews: 128,
-    },
-    {
-      _id: 2,
-      name: "Denim Jacket",
-      price: "₹1,329",
-      image: "https://images.unsplash.com/photo-1521334884684-d80222895322",
-       description:
-    "High-quality cotton t-shirt with a modern fit. Comfortable, breathable, and perfect for everyday wear.",
-      rating: 4.6,
-      reviews: 128,
-    },
-    {
-      _id: 3,
-      name: "Sneakers",
-      price: "₹1,499",
-      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-       description:
-    "High-quality cotton t-shirt with a modern fit. Comfortable, breathable, and perfect for everyday wear.",
-      rating: 4.6,
-      reviews: 128,
-    },
-    {
-      _id: 4,
-      name: "Denim Jacket",
-      price: "₹1,159",
-      image: "https://images.unsplash.com/photo-1521334884684-d80222895322",
-       description:
-    "High-quality cotton t-shirt with a modern fit. Comfortable, breathable, and perfect for everyday wear.",
-      rating: 4.6,
-      reviews: 128,
-    },
+ 
   ]);
   
+
 
   useEffect(()=>{
   getProductData();
@@ -83,11 +30,11 @@ const AppProvider = ({ children }) => {
 
   },[])
    //product data
- const getProductData = async()=>{
+ const getProductData = async(productdata)=>{
   try{
-     const  response= await axios.get("http://localhost:4000/getproduct")
+     const  response= await axios.get("http://localhost:5000/api/getProduct",productdata)
      setProduct(response.data.productdata)
- 
+     toast.success(response.data.message)
   }
   catch{
     console.log("server erro")
@@ -97,20 +44,32 @@ const AppProvider = ({ children }) => {
    // User data
  const getUsertData = async()=>{
   try{
-     const  response= await axios.get("http://localhost:4000/getuser")
-     setUser(response.data.userdata)
-     console.log(response)
+     const  response = await axios.get("http://localhost:5000/api/getuser")
+     setUser(response.data.getUsertData)
+     
   }
   catch{
     console.log("server erro")
   }
  }
-  // Sinup
-  const Sinupuser = async(userData)=>{
+ //contect
+const Contect = async (contectdata)=>{
   try{
-     const  response= await axios.post("http://localhost:4000/sinup",{userData})
-     console.log(response)
-     localStorage.setItem("userSinup",token)
+    const response =await axios.post("http://localhost:5000/api/Contect",contectdata)
+    toast.success(response.data.message)
+  } 
+  catch{
+       console.log("server erro")
+  }
+}
+
+ // Sinup
+  const signup = async(userData)=>{
+    
+  try{
+
+     const  response= await axios.post("http://localhost:5000/api/signup",userData)
+     localStorage.setItem("userSignup",response.data.token)
      toast.success(response.data.message)
   }
   catch{
@@ -118,54 +77,74 @@ const AppProvider = ({ children }) => {
   }
  }
    // login
- const Loginuser = async({userData})=>{
+ const Loginuser = async(userData)=>{
   try{
-     const  response= await axios.post("http://localhost:4000/login",{userData})
-     console.log(response)
-     localStorage.setItem("userlogin",token)
-     toast.success(response.data.message)
+     const  response= await axios.post("http://localhost:5000/api/login",userData)
+     localStorage.setItem("logintoken",response.data.token)
+    if(response.data.success){
+       toast.success(response.data.message)
+         
+      }
+      if(response.data.success){
+       location("/")
+      }
+
+    if(!response.data.success)
+       toast.warning(response.data.message)
+    
+   
 
   }
+    
   catch{
     console.log("server erro")
   }
  }
  // Admin login
 const Adminlogin = async(admindata)=>{
-  const responce = await axios.post("http://localhost:4000/adminlogin",{admindata}) 
-  console.log(responce)
-  localStorage.setItem("adminlogin",token)
-  toast.success(responce.data.massage)
+  try{
+  const responce = await axios.post("http://localhost:5000/api/adminlogin",admindata) 
+ 
+  localStorage.setItem("admintoken", responce.data.token)
+ if(responce.data.success) toast.success("login success")
+  
+ location('/adminDashboard')
+ window.location.reload();
+  }
+    catch{
+      console.log("server error")
+    }    
+    
 }
+
 //add product
 const Addproduct = async(productForm)=>{
-  const responce =await axios.post("http://localhost:4000/addproduct",{productForm})
-  console.log(responce)
-  
-  toast.success(responce.data.massage)
+   
+  const responce =await axios.post("http://localhost:5000/api/addproduct",productForm)
+  toast.success(responce.data.message)
+
 }
 //delet product  admin
-const deletProduct = async({id})=>{
-  const responce =await axios.delete("http://localhost:4000/deletproduct",{id})
-  console.log(responce)
+const deletProduct = async(id)=>{
+  const responce =await axios.delete(`http://localhost:5000/api/deletproduct/${id}`)
   
-  toast.success(responce.data.massage)
+  toast.success(responce.data.message)
 }
 // update product admin
-const updateproduct = async(id)=>{
-  const responce =await axios.update("http://localhost:4000/updateproduct",{id})
-  console.log(responce)
-  toast.success(responce.data.massage)
-}
-// delet user Admin
+// const updateproduct = async(id)=>{
+//   const responce =await axios.update("http://localhost:5000/api/updateproduct",{id})
+//   console.log(responce)
+//   toast.success(responce.data.massage)
+// }
+// delet user 
 
-const deletUser = async(id)=>{
-  const responce =await axios.delete("http://localhost:4000/deletproduct",{id})
-  console.log(responce)
+const deletuser = async(id)=>{
+  const responce =await axios.delete(`http://localhost:5000/api/deletuser/${id}`)
   toast.success(responce.data.massage)
+ 
 }
 
-const value ={ products, user, Loginuser,Sinupuser,Adminlogin,Products,Addproduct,deletProduct ,updateproduct,deletUser }
+const value ={ products, user, Loginuser,signup,Adminlogin,Products,Addproduct,deletProduct,deletuser }
 
   return (
     <AppContext.Provider value={value}>

@@ -3,19 +3,19 @@ import { useContext } from "react";
 import { AppContext } from "../../ContextApi/Contex";
 import { useState } from "react";
 
-
 function ProductForm() {
-const {Addproduct} = useContext(AppContext)
-// 
+  const { Addproduct } = useContext(AppContext);
+  
   const [productForm, setProductform] = useState([
     {
-      Chocolate: "",
-      Cookies: "",
-      Cakes: "",
-      SoftDrink: "",
-      Gifts: "",
-      Candle: "",
-      Decoration: "",
+      name: "",
+      image: "",
+      price: "",
+      oldPrice: "",
+      description: "",
+      rating: "",
+      review: "",
+      category:"",
     },
   ]);
   const handleChange = (e) => {
@@ -26,8 +26,11 @@ const {Addproduct} = useContext(AppContext)
   };
   console.log(productForm);
 
-  const hendalsubmit = () => {
-   Addproduct(productForm)
+  const hendalsubmit = (e) => {
+    e.preventDefault()
+    
+    Addproduct(productForm);
+    setProductform([])
   };
   return (
     <>
@@ -40,6 +43,7 @@ const {Addproduct} = useContext(AppContext)
           type="text"
           placeholder="Product Name"
           className="w-full border p-2 rounded"
+          required
           onChange={handleChange}
         />
 
@@ -49,6 +53,7 @@ const {Addproduct} = useContext(AppContext)
           type="number"
           placeholder="Price"
           className="w-full border p-2 rounded"
+           required
           onChange={handleChange}
         />
         <input
@@ -57,14 +62,34 @@ const {Addproduct} = useContext(AppContext)
           type="number"
           placeholder="old Price"
           className="w-full border p-2 rounded"
+           required
+          onChange={handleChange}
+        />
+         <input
+          value={productForm.description}
+          name="description"
+          type="text"
+          placeholder="Description Product"
+          className="w-full border p-2 rounded"
+           required
           onChange={handleChange}
         />
         <input
-          value={productForm.oldprice}
+          value={productForm.rating}
           name="rating"
           type="text"
           placeholder="rating"
           className="w-full border p-2 rounded"
+           required
+          onChange={handleChange}
+        />
+        <input
+          value={productForm.review} 
+          name="review"
+          type="text"
+          placeholder="review"
+          className="w-full border p-2 rounded"
+          required
           onChange={handleChange}
         />
 
@@ -74,26 +99,32 @@ const {Addproduct} = useContext(AppContext)
           type="text"
           placeholder="Image URL"
           className="w-full border p-2 rounded"
+           required
           onChange={handleChange}
         />
+        
 
         <select
           name="category"
           value={productForm.category}
           onChange={handleChange}
           className="w-full border p-2 rounded"
+           required
         >
           <option value="Chocolate">Chocolate</option>
           <option value="Cookies">Cookies</option>
-          <option value="Cakes">Cakes</option>
+          <option value="Cake">Cakes</option>
           <option value="SoftDrink">Soft Drink</option>
-          <option value="user">Gift's</option>
-          <option value="Gift's">Party Cap</option>
+          <option value="Gift">Gift's</option>
+          <option value="Partycap">Party Cap</option>
           <option value="Candle">Candle</option>
           <option value="Decoration">Decoration</option>
         </select>
 
-        <button onClick={()=>hendalsubmit()} className="w-full bg-black text-white py-2 rounded">
+        <button
+          onClick={hendalsubmit}
+          className="w-full bg-black text-white py-2 rounded"
+        >
           Add Product
         </button>
       </form>

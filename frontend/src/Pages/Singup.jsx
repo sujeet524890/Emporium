@@ -7,15 +7,15 @@ import { AppContext } from "../ContextApi/Contex";
 
 const Singup = () => {
   scrollTo(0, 0);
-
+const location = useNavigate()
  
- const { Sinupuser } = useContext(AppContext);
+ const { signup } = useContext(AppContext);
 
   const [userData, setUserData] = useState({
     fullname: "",
     email: "",
     password: "",
-    Password: "",
+    ConformPassword: "",
   });
 
   const handleChange = (e) => {
@@ -23,10 +23,14 @@ const Singup = () => {
       ...userData,
       [e.target.name]: e.target.value,
     });
-    console.log(userData);
+   
   };
-  const handalesubmit=()=>{
-  Sinupuser(userData)
+   console.log(userData);
+
+  const handalesubmit=(e)=>{
+    e.preventDefault()
+    location("/login")
+  signup(userData)
   }
 
   return (
@@ -44,7 +48,7 @@ const Singup = () => {
           {/* Form */}
           <form className="space-y-4">
             <input
-              name="name"
+              name="fullname"
               type="text"
               placeholder="Full Name"
               className="w-full border p-3 rounded focus:outline-none focus:ring"
@@ -71,7 +75,7 @@ const Singup = () => {
             />
 
             <input
-              name="passward"
+              name="ConformPassword"
               type="password"
               placeholder="Confirm Password"
               className="w-full border p-3 rounded focus:outline-none focus:ring"

@@ -1,14 +1,27 @@
 import React from 'react'
-import {Link, useNavigate} from 'react-router-dom'
+import {Form, Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
+
+
 
 
 const Navebar = () => {
-  const location = useNavigate();
+  const location =useNavigate();
+
+    const islogin = localStorage.getItem("logintoken")
+  
   const[isOpen,setIsOpen]=useState(false)
 
-  const[isLogin,setIsLogin]=useState(true)
+  
 
+   const hendlelogout = ()=>{
+   localStorage.removeItem('logintoken')
+    toast.error("logout your account")
+   }
+   const adminpage =()=>{
+   location("/AdminDashboard")
+   }
   
   
 
@@ -33,15 +46,26 @@ const Navebar = () => {
       <Link to="/Collection"className="hover:text-blue-600 cursor-pointer">Collection</Link>
       <Link to="/About"className="hover:text-blue-600 cursor-pointer">About</Link>
       <Link to="/Contact"className="hover:text-blue-600 cursor-pointer">Contact</Link>
-      <Link to={`${isLogin ? "/Cart" : "/login" }`}className="hover:text-blue-600 cursor-pointer">Cart 🛒</Link>
+      <Link to={`${islogin ? "/Cart" : "/login" }`}className="hover:text-blue-600 cursor-pointer">Cart 🛒</Link>
     </ul>
 
     {/* <!--  Button & Hamburger --> */}
 
     <div className="flex items-center gap-4 ">
-    <Link to='/login'>  <button className="hidden md:block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition cursor-pointer" >
+      {!islogin ?
+    
+      <Link to='/login'>  <button className="hidden   md:block bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700  transition cursor-pointer" >
         Login
+      </button> 
+      </Link>
+      
+      :
+      <Link to='/login'>  <button className="hidden md:block bg-gray-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition cursor-pointer" onClick={hendlelogout} >
+        Logout
       </button> </Link>
+      }
+      <span className="hidden   md:block bg-gray-600 text-white px-2 py-2 rounded-full  hover:bg-blue-700  transition cursor-pointer"onClick={adminpage}><button> 🔐Admin</button></span>
+
 
       {/* <!-- Hamburger Icon --> */}
 
@@ -67,15 +91,15 @@ const Navebar = () => {
     <Link to="/Collection" className="block text-white hover:text-blue-600" onClick={()=>setIsOpen(false)} >Collection</Link>
     <Link to="/About" className="block text-white hover:text-blue-600" onClick={()=>setIsOpen(false)}>About</Link>
     <Link to="/Cart" className="block text-white hover:text-blue-600" onClick={()=>setIsOpen(false)}>Car🛒</Link>
-    {isLogin ?
+    {!islogin ?
     <button className="w-full bg-blue-600 text-white cursor-pointer py-2 rounded"
-    onClick={()=>hendellogin()}>
+    >
       <h1 onClick={()=>setIsOpen(false)}>Login</h1>
     </button>
     :
   <Link to='/login'>  <button className="w-full bg-blue-600 text-white cursor-pointer py-2 rounded"
-   >
-      <h1 onClick={()=>setIsOpen(false)}>Login</h1>
+   onClick={hendlelogout}>
+      <h1 onClick={()=>setIsOpen(false)}>Logout</h1>
     </button>
     </Link>
  }

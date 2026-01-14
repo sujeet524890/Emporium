@@ -1,9 +1,32 @@
 import React from "react";
+import { useState } from "react";
+import { useContext } from "react";
+import { AppContext } from "../ContextApi/Contex";
 
 const Contact = () => {
+  scrollTo(0,0)
+  const {Contect} = useContext(AppContext);
+
+  const[contectdata,setContectdatat]=useState({
+        fullname:"",
+        email:"",
+        textarea:"",
+  });
+  const hendlechange =(e)=>{
+    setContectdatat({
+      ...contectdata,
+      [e.target.name]:e.target.value
+
+    })
+    console.log(contectdata)
+    
+  }
+  const hendlesubmit=()=>{
+    Contect(contectdata)
+    }
   return (
     <div>
-      <div className="bg-[rgb(219,195,172)]">
+      <div className="bg-[rgb(219,195,172)] py-25">
         <section className="min-h-screen flex items-center justify-center px-4">
           <div className="w-full max-w-5xl bg-[rgb(235,212,191)] rounded-lg shadow-lg p-8">
             {/* <!-- Title --> */}
@@ -41,34 +64,38 @@ const Contact = () => {
                 <div>
                   <label className="block text-sm font-medium">Name</label>
                   <input
+                    name="fullname"
                     type="text"
                     placeholder="Your Name"
                     className="w-full mt-1 p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none"
-                  />
+                   onChange={hendlechange}/>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium ">Email</label>
                   <input
+                   name="email"
                     type="text"
                     placeholder="Enter Your Email"
                     className="w-full mt-1 p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none"
-                  />
+                   onChange={hendlechange}/>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium">Message</label>
                   <textarea
+                    name="textarea"
                     rows="4"
                     placeholder="Your Message"
                     className="w-full mt-1 p-2 border rounded focus:ring-2 focus:ring-blue-500 outline-none"
-                  ></textarea>
+                   onChange={hendlechange}></textarea>
                 </div>
 
                 <button
+                
                   type="submit"
                   className="w-full bg-gray-950 text-white py-2 rounded hover:bg-blue-700 transition"
-                >
+                 onClick={()=>hendlesubmit()}>
                   Send Message
                 </button>
               </form>

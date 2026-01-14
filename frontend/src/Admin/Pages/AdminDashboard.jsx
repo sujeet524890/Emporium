@@ -2,21 +2,33 @@ import React, { useState } from "react";
 import User from "./User";
 import ProductForm from "./ProductForm";
 import Products from "./Products";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const AdminDashboard = () => {
-
-  
+  scrollTo(0,0)
+  const location = useNavigate()
 
 
 
   const [tab, setTab] = useState("user");
 
+    const hendellougout =()=>{
+  localStorage.removeItem('admintoken')
+   toast.error("logout your account")
+   location("/adminlogin")
 
+    }
 
   return (
     <div className="min-h-screen bg-[rgb(234,208,184)] py-25">
       {/* Header */}
-      <h1 className="text-2xl font-bold text-center mb-6">Admin Dashboard</h1>
-
+        <>
+        <span><button className="font-semibold text-gray-600 ml-13 hover:text-red-600 cursor-pointer"onClick={hendellougout}> ← Logout</button></span>
+        <h1 className="text-2xl  font-bold text-center  mb-6">Admin Dashboard</h1>
+        
+      </>
+      
+        
       {/* Navigation */}
       <div className="flex flex-col sm:flex-row gap-2 justify-center mb-6">
         <button
@@ -67,6 +79,7 @@ const AdminDashboard = () => {
           <ProductForm></ProductForm>
         )}
       </div>
+      
     </div>
   );
 };

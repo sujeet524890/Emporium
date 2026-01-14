@@ -7,7 +7,7 @@ const ProductPage = () => {
   const { state } = useLocation();
   const products = state?.item;
   
-  const{name,image,price,description,rating,reviews} = products
+  const{name,image,price,description,rating,reviews,} = products
 
   return (
     <div>

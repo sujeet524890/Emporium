@@ -1,33 +1,31 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 import { AppContext } from "../../ContextApi/Contex";
+import { toast } from "react-toastify";
 
 const Adminlogin = () => {
+  const { Adminlogin } = useContext(AppContext);
+
+  const [admindata, setAdmindata] = useState([
+    {
+      email: "",
+      password: "",
+    },
+  ]);
+  const hendlechange = (e) => {
+    setAdmindata({
+      ...admindata,
+      [e.target.name]: e.target.value,
+    });
+  };
   
-            const { Adminlogin } = useContext(AppContext);
 
-            const[admindata,setAdmindata]=useState([
-              {
-                email:"",
-                password:"",
-              },
-            ])
-            const hendlechange =()=>{
-                setAdmindata({
-                  ...admindata,
-                  [e.targe.name]:e.target.value,
-                })
-            };
-            console.log(admindata)
-
-
-            
-            const handalesubmit=()=>{
-           Adminlogin(admindata)
-
-           }
-
-
+  const handalesubmit = (e) => {
+    e.preventDefault(); 
+    Adminlogin(admindata);
+ 
+  };
+ console.log(admindata);
   return (
     <div>
       <div className="min-h-screen flex items-center justify-center bg-[rgb(234,208,184)] px-4">
@@ -41,12 +39,12 @@ const Adminlogin = () => {
           {/* Form */}
           <form className="space-y-4">
             <input
-
               type="email"
               name="email"
               placeholder="Admin Email"
               className="w-full border p-3 rounded focus:outline-none focus:ring"
               required
+              onChange={hendlechange}
             />
 
             <input
@@ -55,11 +53,13 @@ const Adminlogin = () => {
               placeholder="Admin Password"
               className="w-full border p-3 rounded focus:outline-none focus:ring"
               required
+              onChange={hendlechange}
             />
 
             <button
               type="submit"
               className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+              onClick={handalesubmit}
             >
               Login as Admin
             </button>

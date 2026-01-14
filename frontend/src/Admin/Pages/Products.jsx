@@ -4,10 +4,10 @@ import { AppContext } from "../../ContextApi/Contex";
 
 const Products = () => {
  window.scrollTo(0, 0);
-  const { products ,deletProduct ,updateproduct } = useContext(AppContext);
+  const { products ,deletProduct  } = useContext(AppContext);
 
   // products
-
+ 
   return (
     <div>
       <div className="w-full ">
@@ -20,11 +20,12 @@ const Products = () => {
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Image</th>
                 <th className="px-4 py-2">Price</th>
+                <th className="px-4 py-2">oldPrice</th>
                 <th className="px-4 py-2">Description</th>
                 <th className="px-4 py-2">Rating</th>
                 <th className="px-4 py-2">Review</th>
                 <th className="px-4 py-2">Action</th>
-                <th className="px-4 py-2">Update</th>
+                {/* <th className="px-4 py-2">Update</th> */}
               </tr>
             </thead>
 
@@ -47,7 +48,7 @@ const Products = () => {
                   <td className="px-4 py-2">{item.rating} ⭐</td>
                   <td className="px-4 py-2">{item.review}</td>
                   <td><button onClick={()=>deletProduct(item._id)} className="bg-red-500 cursor-pointer text-white px-3 py-1 rounded">Delet</button></td>
-                  <td><button  onClick={()=>updateproduct(item._id)}className="bg-blue-400 cursor-pointer text-white px-3 py-1 rounded">Update</button></td>
+                  {/* <td><button  onClick={()=>updateproduct(item._id)}className="bg-blue-400 cursor-pointer text-white px-3 py-1 rounded">Update</button></td> */}
                 </tr>
               ))}
             </tbody>
@@ -79,6 +80,7 @@ const Products = () => {
 
               <p className="text-sm mt-1">
                 <span className="font-medium">Review:</span> {item.review}
+                <button className=""onClick={()=>deletProduct(item._id)}>Delet</button>
               </p>
             </div>
           ))}

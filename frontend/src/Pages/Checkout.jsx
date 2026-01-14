@@ -8,6 +8,7 @@ const Checkout = () => {
   const hendleback=()=>{
     location("/cart")
   }
+
   
 
   return (
