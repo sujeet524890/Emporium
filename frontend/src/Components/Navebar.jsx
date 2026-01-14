@@ -64,7 +64,7 @@ const Navebar = () => {
         Logout
       </button> </Link>
       }
-      <span className="hidden   md:block bg-gray-600 text-white px-2 py-2 rounded-full  hover:bg-blue-700  transition cursor-pointer"onClick={adminpage}><button> 🔐Admin</button></span>
+      {/* <span className="hidden   md:block bg-gray-600 text-white px-2 py-2 rounded-full  hover:bg-blue-700  transition cursor-pointer"onClick={adminpage}><button> 🔐Admin</button></span> */}
 
 
       {/* <!-- Hamburger Icon --> */}

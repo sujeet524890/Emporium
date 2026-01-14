@@ -25,7 +25,7 @@ const Adminlogin = () => {
     Adminlogin(admindata);
  
   };
- console.log(admindata);
+ 
   return (
     <div>
       <div className="min-h-screen flex items-center justify-center bg-[rgb(234,208,184)] px-4">
